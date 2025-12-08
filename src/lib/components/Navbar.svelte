@@ -8,6 +8,15 @@
 			<div class="flex items-center gap-3">
 				<a href="/" class="text-lg font-semibold text-gray-800">不好用工具箱</a>
 			</div>
+			<div class="flex left-0 items-center justify-center gap-4 text-center">
+				<a
+					href="https://github.com/phillychi3"
+					target="_blank"
+					class="text-gray-600 hover:text-gray-800 flex items-center gap-1"
+				>
+					<Icon icon="mdi:github" class="w-8 h-8" />
+				</a>
+			</div>
 		</div>
 	</div>
 </nav>

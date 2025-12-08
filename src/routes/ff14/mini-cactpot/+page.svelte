@@ -283,7 +283,6 @@
 				maxX = Math.max(maxX, x)
 				minY = Math.min(minY, y)
 				maxY = Math.max(maxY, y)
-
 				;[
 					idx - width - 1,
 					idx - width,
@@ -523,24 +522,70 @@
 	}
 
 	function calculateLineScore(nums: number[]): number {
-		// TODO: 練習 - 計算一條線的實際獎金
-		// 提示:
-		// 1. 檢查 nums 中是否有 0(未知數字),如果有則返回 0
-		// 2. 計算 nums 的總和
-		// 3. 使用 payout 物件查找對應的獎金
-		// 4. 返回獎金數值
-		return 0
+		if (nums.some((n) => n === 0)) return 0
+		const sum = nums.reduce((a, b) => a + b, 0)
+		return payout[sum as keyof typeof payout] || 0
 	}
 
 	function calculateExpectedScore(nums: number[]): number {
-		// TODO: 練習 - 計算一條線的期望值(當有未知數字時)
-		// 提示:
-		// 1. 如果所有數字都已知(沒有 0),直接調用 calculateLineScore
-		// 2. 找出整個 result 中已使用的數字,計算出可用的數字(1-9 中未使用的)
-		// 3. 根據缺少的數字數量(1個、2個或3個),枚舉所有可能的組合
-		// 4. 對每個組合計算獎金,累加總分
-		// 5. 返回平均值(總分 / 組合數量)
-		return 0
+		const knownNums = nums.filter((n) => n !== 0)
+		if (knownNums.length === 3) {
+			return calculateLineScore(nums)
+		}
+
+		const allNums = result.flat().filter((n) => n !== 0)
+		const usedNums = new Set(allNums)
+		const availableNums = [1, 2, 3, 4, 5, 6, 7, 8, 9].filter((n) => !usedNums.has(n))
+
+		if (availableNums.length === 0 || usedNums.size === 0) return 0
+
+		let totalScore = 0
+		let count = 0
+
+		const missingCount = 3 - knownNums.length
+		if (missingCount === 1) {
+			for (const num of availableNums) {
+				const testNums = [...nums]
+				for (let i = 0; i < testNums.length; i++) {
+					if (testNums[i] === 0) {
+						testNums[i] = num
+						break
+					}
+				}
+				totalScore += calculateLineScore(testNums)
+				count++
+			}
+		} else if (missingCount === 2) {
+			for (let i = 0; i < availableNums.length; i++) {
+				for (let j = 0; j < availableNums.length; j++) {
+					if (i === j) continue
+					const testNums = [...nums]
+					let filled = 0
+					for (let k = 0; k < testNums.length; k++) {
+						if (testNums[k] === 0) {
+							testNums[k] = filled === 0 ? availableNums[i] : availableNums[j]
+							filled++
+						}
+					}
+					totalScore += calculateLineScore(testNums)
+					count++
+				}
+			}
+		} else if (missingCount === 3) {
+			for (let i = 0; i < availableNums.length; i++) {
+				for (let j = 0; j < availableNums.length; j++) {
+					if (i === j) continue
+					for (let k = 0; k < availableNums.length; k++) {
+						if (k === i || k === j) continue
+						const sum = availableNums[i] + availableNums[j] + availableNums[k]
+						totalScore += payout[sum as keyof typeof payout] || 0
+						count++
+					}
+				}
+			}
+		}
+
+		return count > 0 ? Math.round(totalScore / count) : 0
 	}
 
 	function getBestLines(): { type: string; index: number; score: number; expected: number }[] {
@@ -596,13 +641,11 @@
 	<h2 class="text-3xl font-bold mb-6 text-gray-800">FF14 Mini Cactpot</h2>
 
 	<div class="border-2 rounded-lg p-6 mb-6">
-		<div class="flex items-center gap-3 mb-3">
-			<h3 class="text-lg font-semibold text-gray-700">使用方式</h3>
-		</div>
 		<ul class="space-y-2 text-gray-600">
 			<li class="flex items-center gap-2">
 				<span class="w-2 h-2 bg-blue-500 rounded-full"></span>
-				<span>貼上圖片</span>
+				<code>Win+Shift+S</code>
+				<span>截圖貼上圖片</span>
 			</li>
 			<li class="flex items-center gap-2">
 				<span class="w-2 h-2 bg-blue-500 rounded-full"></span>
@@ -632,8 +675,8 @@
 		</div>
 	{/if}
 
-	<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-		<div class="bg-white rounded-lg shadow-md p-6">
+	<div class="grid grid-cols-1 gap-6 mb-6">
+		<div class="bg-white p-6">
 			<h3 class="text-xl font-semibold mb-4 text-gray-700">辨識結果</h3>
 
 			{#snippet gridContent()}
