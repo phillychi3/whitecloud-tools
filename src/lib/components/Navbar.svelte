@@ -10,7 +10,7 @@
 			</div>
 			<div class="flex left-0 items-center justify-center gap-4 text-center">
 				<a
-					href="https://github.com/phillychi3"
+					href="https://github.com/phillychi3/whitecloud-tools"
 					target="_blank"
 					class="text-gray-600 hover:text-gray-800 flex items-center gap-1"
 				>

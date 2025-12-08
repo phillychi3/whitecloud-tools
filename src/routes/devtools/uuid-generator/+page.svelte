@@ -78,13 +78,6 @@
 							</Button>
 						{/each}
 					</div>
-					<p class="text-xs text-gray-500 mt-2">
-						{#if selectedVersion === '4'}
-							隨機生成 (最常用)
-						{:else if selectedVersion === '5'}
-							基於 SHA-1 雜湊的命名空間 (相同輸入產生相同 UUID)
-						{/if}
-					</p>
 				</div>
 
 				{#if selectedVersion === '5'}
