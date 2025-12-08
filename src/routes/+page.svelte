@@ -16,7 +16,7 @@
 				name: 'Mini Cactpot Solver',
 				url: '/ff14/mini-cactpot',
 				description: 'Solve your daily Mini Cactpot ticket with ease!',
-				status: 'online'
+				status: 'maintenance'
 			}
 		],
 		devtools: [
@@ -30,7 +30,7 @@
 				name: 'UUID Generator',
 				url: '/devtools/uuid-generator',
 				description: 'Generate unique identifiers (UUIDs).',
-				status: 'development'
+				status: 'online'
 			},
 			{
 				name: 'text converter',
@@ -128,7 +128,7 @@
 										<h3 class="text-lg font-semibold">{tool.name}</h3>
 										{#if tool.status === 'maintenance'}
 											<span class="text-xs px-2 py-1 rounded-full bg-yellow-200 text-yellow-800"
-												>維護中</span
+												>不穩定</span
 											>
 										{/if}
 									</div>
