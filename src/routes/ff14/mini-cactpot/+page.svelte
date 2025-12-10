@@ -51,7 +51,7 @@
 
 	const payout = {
 		6: 10000,
-		7: 3600,
+		7: 36,
 		8: 720,
 		9: 360,
 		10: 80,
@@ -557,8 +557,7 @@
 			}
 		} else if (missingCount === 2) {
 			for (let i = 0; i < availableNums.length; i++) {
-				for (let j = 0; j < availableNums.length; j++) {
-					if (i === j) continue
+				for (let j = i + 1; j < availableNums.length; j++) {
 					const testNums = [...nums]
 					let filled = 0
 					for (let k = 0; k < testNums.length; k++) {
@@ -573,10 +572,8 @@
 			}
 		} else if (missingCount === 3) {
 			for (let i = 0; i < availableNums.length; i++) {
-				for (let j = 0; j < availableNums.length; j++) {
-					if (i === j) continue
-					for (let k = 0; k < availableNums.length; k++) {
-						if (k === i || k === j) continue
+				for (let j = i + 1; j < availableNums.length; j++) {
+					for (let k = j + 1; k < availableNums.length; k++) {
 						const sum = availableNums[i] + availableNums[j] + availableNums[k]
 						totalScore += payout[sum as keyof typeof payout] || 0
 						count++
