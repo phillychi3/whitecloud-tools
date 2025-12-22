@@ -90,5 +90,13 @@ export const TOOLS: Record<string, Tool[]> = {
 			description: 'Count words, characters, and lines in your text.',
 			status: 'development'
 		}
+	],
+	image: [
+		{
+			name: 'AI Image Replace',
+			url: '/image/ai-replace',
+			description: 'Replace parts of an image using AI based on a mask and reference image.',
+			status: 'online'
+		}
 	]
 }
