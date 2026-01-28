@@ -36,7 +36,7 @@ export const TOOLS: Record<string, Tool[]> = {
 			name: 'text converter',
 			url: '/devtools/text-converter',
 			description: 'Convert text between different formats and encodings.',
-			status: 'development'
+			status: 'online'
 		},
 		{
 			name: 'IP Subnet Calculator',
@@ -88,7 +88,7 @@ export const TOOLS: Record<string, Tool[]> = {
 			name: 'word counter',
 			url: '/text/word-counter',
 			description: 'Count words, characters, and lines in your text.',
-			status: 'development'
+			status: 'online'
 		}
 	],
 	image: [
