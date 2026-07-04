@@ -68,7 +68,7 @@ export const TOOLS: Record<string, Tool[]> = {
 			name: 'jwt tool',
 			url: '/security/jwt-tool',
 			description: 'Create, decode, modify, and verify JSON Web Tokens (JWT).',
-			status: 'development'
+			status: 'online'
 		},
 		{
 			name: 'morse code',
